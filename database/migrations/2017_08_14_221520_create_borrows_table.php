@@ -27,7 +27,7 @@ class CreateBorrowsTable extends Migration
              $table->foreign('item_id')->references('item_id')->on('items');
  
              $table->string('borrow_type');
-             $table->foreign('borrow_type')->references('borrow_type')->on('borrowTypes');
+             $table->foreign('borrow_type')->references('borrow_type')->on('borrow_types');
          });
      }
  
