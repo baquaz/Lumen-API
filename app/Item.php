@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Contracts\Auth\Authenticatable as AuthenticatableContract;
 use Illuminate\Contracts\Auth\Access\Authorizable as AuthorizableContract;
 
-class Person extends Model implements AuthenticatableContract, AuthorizableContract
+class User extends Model implements AuthenticatableContract, AuthorizableContract
 {
     use Authenticatable, Authorizable;
 
@@ -18,10 +18,13 @@ class Person extends Model implements AuthenticatableContract, AuthorizableContr
      * @var array
      */
     protected $fillable = [
-        'person_id', //PK
-        'person_name',
-        'email', 
-        'phone',
+        'item_name',
+        'description',
+        'category',
+        'picture',
+
+        //FK
+        'person_id',
     ];
 
     /**
@@ -30,11 +33,12 @@ class Person extends Model implements AuthenticatableContract, AuthorizableContr
      * @var array
      */
     protected $hidden = [
-        'created_at', 'updated_at',
+        'created_at', 
+        'updated_at',
     ];
 
-    public function item()
+    public function person()
     {
-        return $this->hasOne('Item', 'item_id');
+        return $this->belongsTo('Person', 'person_id');
     }
 }

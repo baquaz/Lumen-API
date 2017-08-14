@@ -18,7 +18,9 @@ class User extends Model implements AuthenticatableContract, AuthorizableContrac
      * @var array
      */
     protected $fillable = [
-        'login', 'api_token', 'password',
+        'login',
+        'api_token',
+        'password',
     ];
 
     /**
@@ -27,7 +29,11 @@ class User extends Model implements AuthenticatableContract, AuthorizableContrac
      * @var array
      */
     protected $hidden = [
-        'created_at', 'updated_at', 'password', 'remember_token', 'api_token',
+        'created_at',
+        'updated_at', 
+        'password', 
+        'remember_token', 
+        'api_token',
     ];
 
     public function borrows()
