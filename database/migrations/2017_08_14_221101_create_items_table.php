@@ -11,21 +11,29 @@ class CreateItemsTable extends Migration
      *
      * @return void
      */
-    public function up()
-    {
-        Schema::create('items', function (Blueprint $table) {
-            $table->increments('id');
-            $table->timestamps();
-        });
-    }
-
-    /**
-     * Reverse the migrations.
-     *
-     * @return void
-     */
-    public function down()
-    {
-        Schema::dropIfExists('items');
-    }
+     public function up()
+     {
+         Schema::create('items', function (Blueprint $table) {
+             $table->increments('item_id');
+             $table->string('item_name');
+             $table->string('description');
+             $table->string('category');
+ 
+             $table->nullableTimestamps();
+ 
+             // //foreign keys
+             $table->integer('person_id')->unsigned();
+             $table->foreign('person_id')->references('person_id')->on('persons');
+         });
+     }
+ 
+     /**
+      * Reverse the migrations.
+      *
+      * @return void
+      */
+     public function down()
+     {
+         Schema::dropIfExists('items');
+     }
 }
