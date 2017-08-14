@@ -17,14 +17,14 @@ class ItemsController extends Controller
     //     //
     // }
 
-    //create new user
+    //create new item
     public function add(Request $request) {
         $item = Item::create($request->all());
         
         return response()->json($item);
     }
 
-    //update user
+    //update item
     public function edit(Request $request, $id) {
         // $user = User::find($id);
         // $post->update($request->all());
@@ -32,14 +32,14 @@ class ItemsController extends Controller
         // return response()->json($post);
     }
 
-    //show user
+    //show item
     public function view(Request $request, $id) {
         // $user = User::find($id);
 
         // return response()->json($user);
     }
 
-    //index all users
+    //index all items
     public function index(Request $request) {
         // $users = User::all();
 
