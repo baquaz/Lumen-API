@@ -18,7 +18,7 @@ class User extends Model implements AuthenticatableContract, AuthorizableContrac
      * @var array
      */
     protected $fillable = [
-        'name', 'email',
+        'login', 'api_token', 'password',
     ];
 
     /**
@@ -27,6 +27,11 @@ class User extends Model implements AuthenticatableContract, AuthorizableContrac
      * @var array
      */
     protected $hidden = [
-        'password',
+        'created_at', 'updated_at', 'password', 'remember_token', 'api_token',
     ];
+
+    public function borrows()
+    {
+        return $this->hasMany('Borrow', 'login');
+    }
 }
