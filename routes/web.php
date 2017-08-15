@@ -22,27 +22,38 @@ $app->group(['prefix' => 'api/v1'], function($app){
         $app->group(['prefix' => 'users'], function($app)
         {
             $app->post('add', 'UsersController@add');
-    
-            $app->get('view/{id}', 'UsersController@view');
-    
-            $app->put('edit/{id}', 'UsersController@edit');
-    
-            $app->get('index', 'UsersController@index');
+
+            //Authorized
+                $app->group(['middleware' => 'auth'], function($app)
+                {
+                $app->get('view/{id}', 'UsersController@view');
+        
+                $app->put('edit/{id}', 'UsersController@edit');
+        
+                $app->get('index', 'UsersController@index');
+            });
         });
     
         //borrows
         $app->group(['prefix' => 'borrows'], function($app)
         {
-            $app->post('add', 'BorrowsController@add');
-    
-            $app->get('all', 'BorrowsController@index');
+            //Authorized
+            $app->group(['middleware' => 'auth'], function($app)
+            {
+                $app->post('add', 'BorrowsController@add');
+        
+                $app->get('all', 'BorrowsController@index');
+            });
         });
     
         //items
         $app->group(['prefix' => 'items'], function($app)
         {
-            $app->post('add', 'ItemsController@add');
+            //Authorized
+            $app->group(['middleware' => 'auth'], function($app)
+            {
+                $app->post('add', 'ItemsController@add');
+            });
         });
     
-        
     });
