@@ -3,3 +3,7 @@
 Homestead.json
 Homestead.yaml
 .env
+
+#symbolic links
+.htaccess
+index.php
