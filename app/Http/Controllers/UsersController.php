@@ -38,7 +38,9 @@ class UsersController extends Controller
 
         if(app('hash')->check($request['password'], $user['password'])) {
 
-            return response()->json($user['api_token']);
+            return response()->json([
+                'token' => $user->api_token
+            ]);
         }        
         else {
             // return $this->error("The user with {$login} doesn't exist", 404);
