@@ -32,13 +32,13 @@ class UsersController extends Controller
 
     public function authenticate(Request $request)
     {
-        $login = $request['login'];
+        $login = $request->input('login');
         // $password = $request['password'];
         $user = User::where('login', $login)->firstOrFail();
 
         if(app('hash')->check($request['password'], $user['password'])) {
 
-            return response()->json('hurra');
+            return response()->json($user['api_token']);
         }        
         else {
             // return $this->error("The user with {$login} doesn't exist", 404);
