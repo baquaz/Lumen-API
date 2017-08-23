@@ -19,7 +19,7 @@ $app->get('/', function () use ($app) {
 $app->group(['prefix' => 'api/v1'], function($app)
 {
         //users
-        $app->group(['prefix' => 'users'], function($app)
+        $app->group(['prefix' => 'users', 'middleware' => 'cors'], function($app)
         {
             $app->post('add', 'UsersController@add');
 
