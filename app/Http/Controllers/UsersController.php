@@ -34,18 +34,18 @@ class UsersController extends Controller
     {
         $login = $request->input('login');
         // $password = $request['password'];
-        $user = User::where('login', $login)->firstOrFail();
-
-        if(app('hash')->check($request['password'], $user['password'])) {
-
-            return response()->json([
-                'token' => $user->api_token
-            ]);
-        }        
-        else {
-            // return $this->error("The user with {$login} doesn't exist", 404);
-            return response()->json("The user with doesn't exist");
-        }
+        $user = User::where('login', $login)->first();
+				
+			if(app('hash')->check($request['password'], $user['password'])) {
+				return response()->json([
+					'token' => $user->api_token
+				]);
+			}        
+			else {				
+				return response()->json([
+					'error' => 'Incorrect username or password'
+				]);			
+			}	
     }
 
     //update user
