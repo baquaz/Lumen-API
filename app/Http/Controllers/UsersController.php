@@ -33,18 +33,18 @@ class UsersController extends Controller
     public function authenticate(Request $request)
     {
         $login = $request->input('login');
-        // $password = $request['password'];
-        $user = User::where('login', $login)->first();
-				
+
+        $user = User::where('login', $login)->first();				
 			if(app('hash')->check($request['password'], $user['password'])) {
 				return response()->json([
 					'token' => $user->api_token
 				]);
 			}        
-			else {				
-				return response()->json([
-					'error' => 'Incorrect username or password'
-				]);			
+			else {		
+                return response()
+                    ->json([
+                        'error' => 'Invalid login or password'
+                    ], 404);		
 			}	
     }
 
