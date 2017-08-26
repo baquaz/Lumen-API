@@ -22,12 +22,26 @@ class UsersController extends Controller
     //create new user
     public function add(Request $request)
     {   
-        $request['api_token'] = str_random(60);
-        $request['password'] = app('hash')->make($request['password']);
-        
-        $user = User::create($request->all());
+        $login = $request->input('login');
+        $check = User::where('login', $login)->first();
 
-        return response()->json($user);
+        if($check != null){
+            return response()
+            ->json([
+                'error' => 'This user already exists.'
+            ], 401);
+        }
+        else{
+            $request['api_token'] = str_random(60);
+            $request['password'] = app('hash')->make($request['password']);
+            
+            $user = User::create($request->all());
+
+            return response()->json([
+                'msg' => 'User has been added to database.',
+                'token' => $request->api_token
+            ]);
+        }
     }
 
     public function authenticate(Request $request)
