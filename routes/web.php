@@ -16,19 +16,23 @@ $app->get('/', function () use ($app) {
 });
 
 //api v1
-$app->group(['prefix' => 'api/v1'], function($app){
-    
+$app->group(['prefix' => 'api/v1'], function($app)
+{
         //users
-        $app->group(['prefix' => 'users'], function($app)
+        $app->group(['prefix' => 'users', 'middleware' => 'cors'], function($app)
         {
             $app->post('add', 'UsersController@add');
 
+            $app->post('login', 'UsersController@authenticate');
+
+            $app->put('edit/{id}', 'UsersController@edit');
+
             //Authorized
-                $app->group(['middleware' => 'auth'], function($app)
+            $app->group(['middleware' => 'auth'], function($app)
                 {
-                $app->get('view/{id}', 'UsersController@view');
-        
-                $app->put('edit/{id}', 'UsersController@edit');
+                
+                    $app->get('view/{id}', 'UsersController@view');
+
         
                 $app->get('index', 'UsersController@index');
             });
@@ -56,4 +60,4 @@ $app->group(['prefix' => 'api/v1'], function($app){
             });
         });
     
-    });
+ });
