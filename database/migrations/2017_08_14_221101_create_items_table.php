@@ -23,7 +23,7 @@ class CreateItemsTable extends Migration
  
              // //foreign keys
              $table->integer('person_id')->unsigned();
-             $table->foreign('person_id')->references('person_id')->on('persons');
+             $table->foreign('person_id')->references('person_id')->on('people');
          });
      }
  

@@ -18,11 +18,12 @@ class Borrow extends Model implements AuthenticatableContract, AuthorizableContr
      * @var array
      */
     protected $fillable = [
-        'user_id', //PK
+        'borrow_id', //PK
         'borrow_date', 
         'return_date',
 
         //FK
+        'user_id',
         'item_id', 
         'borrow_type', 
     ];

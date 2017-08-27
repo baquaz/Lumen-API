@@ -5,6 +5,12 @@ namespace App\Http\Controllers;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
+//import models for relations
+use App\Person;
+use App\Item;
+use App\Borrow;
+use App\User;
+
 class BorrowsController extends Controller
 {
   /**
@@ -19,7 +25,35 @@ class BorrowsController extends Controller
 
     //create new borrow
     public function add(Request $request) {
-        $borrow = Borrow::create($request->all());
+        $person = Person::create($request->only('person_name','email','phone'));
+        $person_id = $person['id'];
+
+        $item_request_array = $request->only(
+            'item_name',
+            'description',
+            'category'
+        );
+
+        $item_request_array['person_id'] = $person_id;
+        $item = Item::create($item_request_array);
+
+        $item_id = $item['id'];
+        
+        $borrow_request_array = $request->only(
+            'borrow_type',
+            'borrow_date',
+            'return_date'
+        );
+
+        $token = $request->header('api_token');
+        $user = User::where('api_token', $token)->first();
+        $user_id = $user['user_id'];
+
+        $borrow_request_array['person_id'] = $person_id;
+        $borrow_request_array['user_id'] = $user_id;
+        $borrow_request_array['item_id'] = $item_id;
+
+        $borrow = Borrow::create($borrow_request_array);
 
         return response()->json($borrow);
     }
