@@ -6,6 +6,7 @@ $vendorDir = dirname(dirname(__FILE__));
 $baseDir = dirname($vendorDir);
 
 return array(
+    'BorrowTypesSeeder' => $baseDir . '/database/seeds/BorrowTypesSeeder.php',
     'CreateBorrowTypesTable' => $baseDir . '/database/migrations/2017_08_14_220719_create_borrow_types_table.php',
     'CreateBorrowsTable' => $baseDir . '/database/migrations/2017_08_14_221520_create_borrows_table.php',
     'CreateItemsTable' => $baseDir . '/database/migrations/2017_08_14_221101_create_items_table.php',

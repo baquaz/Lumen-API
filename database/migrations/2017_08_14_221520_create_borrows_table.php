@@ -16,7 +16,7 @@ class CreateBorrowsTable extends Migration
          Schema::create('borrows', function (Blueprint $table) {
              $table->increments('borrow_id');
              $table->date('borrow_date');
-             $table->date('return_date');
+             $table->date('return_date')->nullable();
              $table->nullableTimestamps();
  
              //foreign keys

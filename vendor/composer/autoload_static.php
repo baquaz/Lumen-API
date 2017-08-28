@@ -306,6 +306,7 @@ class ComposerStaticInit016de71eb28998d621a5043497ec6920
     );
 
     public static $classMap = array (
+        'BorrowTypesSeeder' => __DIR__ . '/../..' . '/database/seeds/BorrowTypesSeeder.php',
         'CreateBorrowTypesTable' => __DIR__ . '/../..' . '/database/migrations/2017_08_14_220719_create_borrow_types_table.php',
         'CreateBorrowsTable' => __DIR__ . '/../..' . '/database/migrations/2017_08_14_221520_create_borrows_table.php',
         'CreateItemsTable' => __DIR__ . '/../..' . '/database/migrations/2017_08_14_221101_create_items_table.php',
