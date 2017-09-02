@@ -45,10 +45,13 @@ $app->group(['prefix' => 'api/v1'], function($app)
             $app->group(['middleware' => 'auth'], function($app)
             {
                 $app->post('add', 'BorrowsController@add');
-        
-                $app->get('all', 'BorrowsController@index');
 
-                $app->get('view', 'BorrowsController@view');
+                //get group
+                $app->group(['prefix' => 'get'], function($app){
+
+                    $app->get('all', 'BorrowsController@getAll');    
+
+                });
             });
         });
     

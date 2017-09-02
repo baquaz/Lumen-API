@@ -52,7 +52,7 @@ class BorrowsController extends Controller
         
         $borrow_request_array['person_id'] = $person_id;
         $borrow_request_array['user_id'] = $user_id;
-        $borrow_request_array['item_id'] = $item_id;
+        // $borrow_request_array['item_id'] = $item_id;
 
         $borrow = Borrow::create($borrow_request_array);
 
@@ -68,41 +68,33 @@ class BorrowsController extends Controller
     }
 
     //show borrow
-    public function view(Request $request) {
-        
-        // $token = $request->header('api_token');
-        // $user = User::where('api_token', $token)->first();
-        // $borrow = $user->borrows();
-        
-        
+    public function getAll(Request $request) {
+
         $token = $request->header('api_token');
-        // $token = $request['api_token'];
+
         $user = User::where('api_token', $token)->first();
         $user_id = $user['user_id'];
-        
+
         $borrows = $user->borrows()->get();
-
-        // $items = Item::where('user_id', $user_id)->get();
-
-        $items = $user->items()->get();
-        $people;     
         
+        foreach ($borrows as $borrow) {
+            $item = $borrow->item()->first();
+            $person = $item->person()->first();
+            
+            $borrowsArray[]=[
+                'borrow_type' => $borrow->borrow_type,
+                'borrow_date' => $borrow->borrow_date,
+                'return_date' => $borrow->return_date,
+                'item_name' => $item->item_name,
+                'item_description' => $item->description,
+                'item_category' => $item->category,
+                'person_name' => $person->name,
+                'person_email' => $person->email,
+                'person_phone' => $person->phone
+            ];
+        }
 
-        
-        // foreach ($borrows as $borrow) {
-        //     $item = $borrow->item()->first();
-        //     $person = $item->person()->first();
-        //     $items[] = $item;
-        //     $people[] = $person;
-        // //    $items[] = Item::where('item_id', $borrow->item_id)->first();
-        // }
-        return response()->json($items);
+        return response()->json($borrowsArray);
     }
 
-    //index all borrows
-    public function index(Request $request) {
-        $users = Borrow::with('borrowType', 'item')->first();
-
-        return response()->json($users);
-    }
 }
