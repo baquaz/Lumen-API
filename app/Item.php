@@ -26,6 +26,7 @@ class Item extends Model implements AuthenticatableContract, AuthorizableContrac
         //FK
         'person_id',
     ];
+    protected $primaryKey = 'item_id';
 
     /**
      * The attributes excluded from the model's JSON form.
@@ -39,6 +40,6 @@ class Item extends Model implements AuthenticatableContract, AuthorizableContrac
 
     public function person()
     {
-        return $this->belongsTo('Person', 'person_id');
+        return $this->belongsTo('App\Person', 'person_id', 'person_id');
     }
 }

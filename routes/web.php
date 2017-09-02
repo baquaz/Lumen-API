@@ -47,6 +47,8 @@ $app->group(['prefix' => 'api/v1'], function($app)
                 $app->post('add', 'BorrowsController@add');
         
                 $app->get('all', 'BorrowsController@index');
+
+                $app->get('view', 'BorrowsController@view');
             });
         });
     

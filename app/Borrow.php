@@ -17,8 +17,7 @@ class Borrow extends Model implements AuthenticatableContract, AuthorizableContr
      *
      * @var array
      */
-    protected $fillable = [
-        'borrow_id', //PK
+    protected $fillable = [       
         'borrow_date', 
         'return_date',
 
@@ -27,7 +26,7 @@ class Borrow extends Model implements AuthenticatableContract, AuthorizableContr
         'item_id', 
         'borrow_type', 
     ];
-
+    protected $primaryKey = 'borrow_id';
     /**
      * The attributes excluded from the model's JSON form.
      *
@@ -45,7 +44,7 @@ class Borrow extends Model implements AuthenticatableContract, AuthorizableContr
 
     public function item()
     {   
-        return $this->hasOne('App\Item', 'id');
+        return $this->hasOne('App\Item', 'item_id', 'item_id');
     }
 
     public function borrowType()

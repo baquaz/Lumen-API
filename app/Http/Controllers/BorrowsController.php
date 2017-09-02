@@ -45,10 +45,11 @@ class BorrowsController extends Controller
             'return_date'
         );
 
-        $token = $request->header('api_token');
+        $token = $request['api_token'];
+        
         $user = User::where('api_token', $token)->first();
         $user_id = $user['user_id'];
-
+        
         $borrow_request_array['person_id'] = $person_id;
         $borrow_request_array['user_id'] = $user_id;
         $borrow_request_array['item_id'] = $item_id;
@@ -67,10 +68,35 @@ class BorrowsController extends Controller
     }
 
     //show borrow
-    public function view(Request $request, $id) {
-        $user = User::find($id);
+    public function view(Request $request) {
+        
+        // $token = $request->header('api_token');
+        // $user = User::where('api_token', $token)->first();
+        // $borrow = $user->borrows();
+        
+        
+        $token = $request->header('api_token');
+        // $token = $request['api_token'];
+        $user = User::where('api_token', $token)->first();
+        $user_id = $user['user_id'];
+        
+        $borrows = $user->borrows()->get();
 
-        return response()->json($user);
+        // $items = Item::where('user_id', $user_id)->get();
+
+        $items = $user->items()->get();
+        $people;     
+        
+
+        
+        // foreach ($borrows as $borrow) {
+        //     $item = $borrow->item()->first();
+        //     $person = $item->person()->first();
+        //     $items[] = $item;
+        //     $people[] = $person;
+        // //    $items[] = Item::where('item_id', $borrow->item_id)->first();
+        // }
+        return response()->json($items);
     }
 
     //index all borrows
