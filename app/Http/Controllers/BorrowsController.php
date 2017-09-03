@@ -88,7 +88,7 @@ class BorrowsController extends Controller
                 'item_name' => $item->item_name,
                 'item_description' => $item->description,
                 'item_category' => $item->category,
-                'person_name' => $person->name,
+                'person_name' => $person->person_name,
                 'person_email' => $person->email,
                 'person_phone' => $person->phone
             ];
