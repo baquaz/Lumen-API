@@ -47,7 +47,7 @@ $app->group(['prefix' => 'api/v1'], function($app)
                 $app->post('add', 'BorrowsController@add');
 
                 //get group
-                $app->group(['prefix' => 'get'], function($app){
+                $app->group(['prefix' => 'get', 'middleware' => 'cors'], function($app){
 
                     $app->get('all', 'BorrowsController@getAll');    
 
